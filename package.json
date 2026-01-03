@@ -1,13 +1,22 @@
 {
-  "name": "inline-code-notes",
-  "displayName": "Inline Code Notes",
+  "name": "inline-notes-hover",
+  "displayName": "Inline Notes Hover",
   "description": "Add notes to specific lines of code with a professional sidebar UI",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "publisher": "ramana",
+
+  "icon":"icon.png",
+
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ramana0306/codenotes"
+  },
+
   "engines": {
     "vscode": "^1.85.0"
   },
-  "categories": ["Productivity"],
+  "categories": ["Other"],
   "activationEvents": ["onCommand:codeNotes.addNote"],
   "main": "./extension.js",
   "contributes": {
@@ -28,7 +37,7 @@
       "activitybar": [
         {
           "id": "codeNotes",
-          "title": "Notes(Alt+N)",
+          "title": "Notes (Alt+N)",
           "icon": "media/pen.png"
         }
       ]
@@ -38,8 +47,7 @@
         {
           "id": "codeNotes.sidebar",
           "name": "Code Notes",
-          "type":"webview"
-          
+          "type": "webview"
         }
       ]
     }
