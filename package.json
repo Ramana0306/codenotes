@@ -1,9 +1,9 @@
 {
   "name": "codenotes",
   "displayName": "Code Notes",
-  "description": "Add inline notes to code and view them on hover",
-  "version": "0.0.1",
-  "publisher": "Ramana,Abinaya",
+  "description": "Add persistent inline notes to your code and view them on hover or keyboard shortcuts.",
+  "version": "0.1.0",
+  "publisher": "Ramana , Abinaya",
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -19,29 +19,37 @@
       {
         "command": "codenotes.addNote",
         "title": "Add Code Note"
+      },
+      {
+        "command": "codenotes.viewNote",
+        "title": "View Code Note"
       }
     ],
     "keybindings": [
-  {
-    "command": "codenotes.addNote",
-    "key": "alt+n",
-    "when": "editorTextFocus"
-  },
-  {
-    "command": "codenotes.viewNote",
-    "key": "alt+v",
-    "when": "editorTextFocus"
-  }
-]
+      {
+        "command": "codenotes.addNote",
+        "key": "alt+n",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "codenotes.viewNote",
+        "key": "alt+v",
+        "when": "editorTextFocus"
+      }
+    ]
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/codenotes"
+    "url": "https://github.com/Ramana0306/codenotes"
   },
+  "bugs": {
+    "url": "https://github.com/Ramana0306/codenotes/issues"
+  },
+  "homepage": "https://github.com/Ramana0306/codenotes#readme",
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",
-    "test": "echo \"No tests\""
+    "test": "echo \"No tests specified\""
   },
   "devDependencies": {
     "@types/vscode": "^1.80.0",
