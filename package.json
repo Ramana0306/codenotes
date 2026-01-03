@@ -1,59 +1,50 @@
 {
-  "name": "codenotes",
-  "displayName": "Code Notes",
-  "description": "Add persistent inline notes to your code and view them on hover or keyboard shortcuts.",
+  "name": "inline-code-notes",
+  "displayName": "Inline Code Notes",
+  "description": "Add notes to specific lines of code with a professional sidebar UI",
   "version": "0.1.0",
-  "publisher": "Ramana , Abinaya",
+  "publisher": "ramana",
   "engines": {
-    "vscode": "^1.80.0"
+    "vscode": "^1.85.0"
   },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [
-    "*"
-  ],
+  "categories": ["Productivity"],
+  "activationEvents": ["onCommand:codeNotes.addNote"],
   "main": "./extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "codenotes.addNote",
+        "command": "codeNotes.addNote",
         "title": "Add Code Note"
-      },
-      {
-        "command": "codenotes.viewNote",
-        "title": "View Code Note"
       }
     ],
     "keybindings": [
       {
-        "command": "codenotes.addNote",
+        "command": "codeNotes.addNote",
         "key": "alt+n",
         "when": "editorTextFocus"
-      },
-      {
-        "command": "codenotes.viewNote",
-        "key": "alt+v",
-        "when": "editorTextFocus"
       }
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Ramana0306/codenotes"
-  },
-  "bugs": {
-    "url": "https://github.com/Ramana0306/codenotes/issues"
-  },
-  "homepage": "https://github.com/Ramana0306/codenotes#readme",
-  "license": "MIT",
-  "scripts": {
-    "lint": "eslint .",
-    "test": "echo \"No tests specified\""
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "codeNotes",
+          "title": "Notes(Alt+N)",
+          "icon": "media/pen.png"
+        }
+      ]
+    },
+    "views": {
+      "codeNotes": [
+        {
+          "id": "codeNotes.sidebar",
+          "name": "Code Notes",
+          "type":"webview"
+          
+        }
+      ]
+    }
   },
   "devDependencies": {
-    "@types/vscode": "^1.80.0",
-    "@types/node": "18.x",
-    "eslint": "^8.56.0"
+    "vscode": "^1.1.42"
   }
 }

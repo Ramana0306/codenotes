@@ -1,65 +1,37 @@
-# codenotes README
+# Inline Code Notes
 
-This is the README for your extension "codenotes". After writing up a brief description, we recommend including the following sections.
+Inline Code Notes is a Visual Studio Code extension that allows you to add notes to specific lines of code and view them in a professional sidebar.
 
-## Features
+## ✨ Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- Add notes to any line using **Alt + N**
+- View notes in a dedicated sidebar
+- Navigate to the exact line by clicking a note
+- Notes are saved per file
+- Clean, VS Code–native UI
+- Hover over code lines to see notes
 
-For example if there is an image subfolder under your extension project workspace:
+## ⌨️ Shortcut
 
-\!\[feature X\]\(images/feature-x.png\)
+| Action        | Shortcut |
+|---------------|----------|
+| Add Code Note | Alt + N  |
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## 🧠 How It Works
 
-## Requirements
+1. Place cursor on any line
+2. Press **Alt + N**
+3. Type your note
+4. View and manage notes from the sidebar
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+## 📦 Installation
 
-## Extension Settings
+Search for **Inline Code Notes** in the VS Code Marketplace.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+## 🛠️ Requirements
 
-For example:
+- Visual Studio Code 1.85.0 or later
 
-This extension contributes the following settings:
+## 📄 License
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+MIT
