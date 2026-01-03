@@ -1,0 +1,51 @@
+{
+  "name": "codenotes",
+  "displayName": "Code Notes",
+  "description": "Add inline notes to code and view them on hover",
+  "version": "0.0.1",
+  "publisher": "Ramana,Abinaya",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codenotes.addNote",
+        "title": "Add Code Note"
+      }
+    ],
+    "keybindings": [
+  {
+    "command": "codenotes.addNote",
+    "key": "alt+n",
+    "when": "editorTextFocus"
+  },
+  {
+    "command": "codenotes.viewNote",
+    "key": "alt+v",
+    "when": "editorTextFocus"
+  }
+]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/codenotes"
+  },
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "echo \"No tests\""
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "@types/node": "18.x",
+    "eslint": "^8.56.0"
+  }
+}
