@@ -1,51 +1,151 @@
 const vscode = require('vscode');
 
-function activate(context) {
-  console.log('CodeNotes extension activated');
+const NOTES_KEY = 'codenotes.notes';
 
-  // ADD NOTE COMMAND
+/**
+ * Safely get notes from workspace storage
+ */
+function getNotes(context) {
+  try {
+    return context.workspaceState.get(NOTES_KEY, {});
+  } catch (err) {
+    console.error('Failed to read notes:', err);
+    return {};
+  }
+}
+
+/**
+ * Safely save notes to workspace storage
+ */
+function saveNotes(context, notes) {
+  try {
+    return context.workspaceState.update(NOTES_KEY, notes);
+  } catch (err) {
+    console.error('Failed to save notes:', err);
+    vscode.window.showErrorMessage('Failed to save note');
+  }
+}
+
+/**
+ * Extension activation
+ */
+function activate(context) {
+  console.log('✅ CodeNotes activated');
+
+  /**
+   * ADD / UPDATE NOTE
+   */
   const addNoteCommand = vscode.commands.registerCommand(
     'codenotes.addNote',
     async () => {
-      const editor = vscode.window.activeTextEditor;
-      if (!editor) return;
+      try {
+        const editor = vscode.window.activeTextEditor;
+        if (!editor) {
+          vscode.window.showWarningMessage('No active editor found');
+          return;
+        }
 
-      const line = editor.selection.active.line;
-      const filePath = editor.document.uri.fsPath;
+        const document = editor.document;
+        const filePath = document.uri.fsPath;
+        const line = editor.selection.active.line;
 
-      const note = await vscode.window.showInputBox({
-        prompt: 'Enter note for this line'
-      });
+        const note = await vscode.window.showInputBox({
+          prompt: 'Enter note for this line',
+          placeHolder: 'Example: Refactor later'
+        });
 
-      if (!note) return;
+        if (!note || !note.trim()) {
+          vscode.window.showInformationMessage('Note not saved (empty)');
+          return;
+        }
 
-      const notes = context.workspaceState.get('notes', {});
-      if (!notes[filePath]) notes[filePath] = {};
-      notes[filePath][line] = note;
+        const notes = getNotes(context);
 
-      context.workspaceState.update('notes', notes);
+        if (!notes[filePath]) {
+          notes[filePath] = {};
+        }
 
-      vscode.window.showInformationMessage('Note saved ✔');
+        notes[filePath][line] = note.trim();
+        await saveNotes(context, notes);
+
+        vscode.window.showInformationMessage(
+          `📝 Note saved for line ${line + 1}`
+        );
+      } catch (err) {
+        console.error('Add note error:', err);
+        vscode.window.showErrorMessage('Unexpected error while adding note');
+      }
     }
   );
 
-  // HOVER PROVIDER
+  /**
+   * VIEW NOTE (KEYBOARD)
+   */
+  const viewNoteCommand = vscode.commands.registerCommand(
+    'codenotes.viewNote',
+    () => {
+      try {
+        const editor = vscode.window.activeTextEditor;
+        if (!editor) {
+          vscode.window.showWarningMessage('No active editor found');
+          return;
+        }
+
+        const filePath = editor.document.uri.fsPath;
+        const line = editor.selection.active.line;
+
+        const notes = getNotes(context);
+
+        const note =
+          notes[filePath] && notes[filePath][line];
+
+        if (note) {
+          vscode.window.showInformationMessage(`📝 ${note}`);
+        } else {
+          vscode.window.showInformationMessage(
+            'No note for this line'
+          );
+        }
+      } catch (err) {
+        console.error('View note error:', err);
+        vscode.window.showErrorMessage('Failed to view note');
+      }
+    }
+  );
+
+  /**
+   * HOVER PROVIDER
+   */
   const hoverProvider = vscode.languages.registerHoverProvider('*', {
     provideHover(document, position) {
-      const notes = context.workspaceState.get('notes', {});
-      const filePath = document.uri.fsPath;
-      const line = position.line;
+      try {
+        const filePath = document.uri.fsPath;
+        const line = position.line;
+        const notes = getNotes(context);
 
-      if (notes[filePath] && notes[filePath][line]) {
-        return new vscode.Hover(`📝 ${notes[filePath][line]}`);
+        if (notes[filePath] && notes[filePath][line]) {
+          return new vscode.Hover(`📝 ${notes[filePath][line]}`);
+        }
+      } catch (err) {
+        console.error('Hover error:', err);
       }
+      return null;
     }
   });
 
-  context.subscriptions.push(addNoteCommand, hoverProvider);
+  context.subscriptions.push(
+    addNoteCommand,
+    viewNoteCommand,
+    hoverProvider
+  );
 }
 
-function deactivate() {}
+/**
+ * Extension deactivation
+ */
+function deactivate() {
+  console.log('❌ CodeNotes deactivated');
+}
 
 module.exports = {
   activate,
